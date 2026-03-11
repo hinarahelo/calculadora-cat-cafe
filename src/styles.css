@@ -396,5 +396,9 @@ select {
   .metric-card,
   .material-card {
     border-radius: 24px;
-  }
+.logo-img {
+  width: 260px;
+  max-width: 90%;
+  display: block;
+  margin: 0 auto 15px auto;
 }
