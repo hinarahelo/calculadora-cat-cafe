@@ -268,7 +268,7 @@ export default function App() {
 
             <div className="panel-body metrics">
               <div className="metric-card">
-                <span className="metric-label">Total de itens</span>
+                <span className="metric-label">Total de Combos</span>
                 <strong className="metric-value">{resultado.totalItens}</strong>
               </div>
 
@@ -287,7 +287,7 @@ export default function App() {
               </div>
 
               <div className="metric-card">
-                <span className="metric-label">Custo total</span>
+                <span className="metric-label">Custo de Produção</span>
                 <strong className="metric-value small">
                   {moeda(resultado.custoTotal)}
                 </strong>
