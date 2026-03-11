@@ -183,8 +183,6 @@ export default function App() {
     <div className="page">
       <div className="app-shell">
         <header className="hero">
-          <div className="hero-top-badge">CAT CAFÉ • DISHES & DESSERTS</div>
-
           <div className="logo-circle">
             <img src={logo} alt="Cat Cafe Logo" className="logo-img" />
           </div>
