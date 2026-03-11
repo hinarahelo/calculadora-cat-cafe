@@ -1,7 +1,6 @@
 :root {
   --bg: #f7e7ec;
-  --bg-soft: #f8dde5;
-  --panel: rgba(251, 238, 242, 0.96);
+  --panel: rgba(251, 238, 242, 0.97);
   --panel-strong: #fff6f8;
   --border: #efc7d2;
   --border-strong: #e5a9bb;
@@ -10,6 +9,7 @@
   --text-strong: #7e4258;
   --white: #ffffff;
   --shadow: 0 18px 45px rgba(180, 112, 136, 0.16);
+  --shadow-soft: 0 10px 24px rgba(180, 112, 136, 0.12);
 }
 
 * {
@@ -37,10 +37,10 @@ select {
 
 .page {
   min-height: 100vh;
-  padding: 16px;
+  padding: 18px;
   background:
     radial-gradient(circle at 12px 12px, rgba(255, 255, 255, 0.92) 2px, transparent 2px),
-    radial-gradient(circle at 42px 42px, rgba(255, 255, 255, 0.5) 1.5px, transparent 2px),
+    radial-gradient(circle at 42px 42px, rgba(255, 255, 255, 0.45) 1.5px, transparent 2px),
     linear-gradient(180deg, #f8eaf0 0%, #f3dbe3 100%);
   background-size: 24px 24px, 60px 60px, 100% 100%;
 }
@@ -55,41 +55,24 @@ select {
 .hero {
   background: rgba(248, 223, 230, 0.92);
   border: 4px solid var(--border);
-  border-radius: 36px;
+  border-radius: 38px;
   box-shadow: var(--shadow);
-  padding: 34px 24px 36px;
+  padding: 28px 24px 32px;
   text-align: center;
-  position: relative;
-}
-
-.hero-top-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  padding: 8px 18px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 2px solid var(--border);
-  border-radius: 999px;
-  color: var(--title);
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  margin-bottom: 18px;
 }
 
 .logo-circle {
-  margin: 0 auto 14px;
+  margin: 0 auto 10px;
   display: grid;
   place-items: center;
 }
 
 .logo-img {
-  width: 320px;
-  max-width: 90%;
+  width: 300px;
+  max-width: 88%;
   height: auto;
   display: block;
-  margin: 0 auto 12px auto;
+  margin: 0 auto;
 }
 
 .hero-title,
@@ -103,17 +86,17 @@ select {
 }
 
 .hero-title {
-  margin: 0;
+  margin: 4px 0 0;
   color: var(--title);
-  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-size: clamp(2rem, 4vw, 3.4rem);
   line-height: 1;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
 .hero-text {
-  margin: 14px auto 0;
-  max-width: 820px;
+  margin: 12px auto 0;
+  max-width: 760px;
   color: var(--text);
   font-weight: 700;
   font-size: 15px;
@@ -136,10 +119,10 @@ select {
 }
 
 .panel-title {
-  background: rgba(249, 227, 234, 0.94);
+  background: rgba(249, 227, 234, 0.96);
   color: var(--title);
   padding: 18px 22px;
-  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
   line-height: 1;
   border-bottom: 1px solid #f3d6de;
 }
@@ -154,7 +137,8 @@ select {
   border-radius: 28px;
   padding: 16px;
   margin-bottom: 16px;
-  transition: transform 0.2s ease;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.18s ease;
 }
 
 .line-card:hover {
@@ -187,7 +171,7 @@ select {
 .field input,
 .field select {
   width: 100%;
-  height: 48px;
+  height: 50px;
   border-radius: 18px;
   border: 2px solid var(--border);
   background: var(--white);
@@ -208,7 +192,7 @@ select {
 }
 
 .button {
-  height: 48px;
+  height: 50px;
   border-radius: 18px;
   padding: 0 18px;
   cursor: pointer;
@@ -267,6 +251,7 @@ select {
   border-radius: 28px;
   padding: 18px 16px;
   text-align: center;
+  box-shadow: var(--shadow-soft);
 }
 
 .metric-label {
@@ -307,7 +292,8 @@ select {
   border-radius: 28px;
   padding: 18px;
   text-align: center;
-  transition: transform 0.2s ease;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.18s ease;
 }
 
 .material-card:hover {
@@ -346,18 +332,18 @@ select {
 
 .footer-credit {
   text-align: center;
-  margin-top: 8px;
+  margin-top: 4px;
   padding: 14px 18px;
   font-size: 16px;
   color: #9e4561;
-  background: rgba(248, 223, 230, 0.7);
+  background: rgba(248, 223, 230, 0.72);
   border: 3px solid #efc7d2;
   border-radius: 20px;
   width: fit-content;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 6px 12px rgba(180, 112, 136, 0.15);
+  box-shadow: var(--shadow-soft);
 }
 
 @media (max-width: 1024px) {
@@ -373,7 +359,7 @@ select {
 
   .hero {
     border-radius: 28px;
-    padding: 26px 16px 28px;
+    padding: 24px 16px 28px;
   }
 
   .panel {
@@ -416,11 +402,6 @@ select {
 }
 
 @media (max-width: 520px) {
-  .hero-top-badge {
-    font-size: 12px;
-    padding: 8px 14px;
-  }
-
   .hero-text {
     font-size: 14px;
   }
