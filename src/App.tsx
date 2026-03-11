@@ -105,6 +105,16 @@ export default function App() {
     ]);
   }
 
+  function limparPedido() {
+    setLinhas([
+      {
+        id: 1,
+        item: "kids",
+        quantidade: 0
+      }
+    ]);
+  }
+
   function removerLinha(id: number) {
     setLinhas((atual) => atual.filter((linha) => linha.id !== id));
   }
@@ -148,7 +158,8 @@ export default function App() {
       custoTotal += custoDaLinha(linha.item, linha.quantidade);
 
       for (const [material, qtdBase] of Object.entries(itemAtual.ingredientes)) {
-        materiais[material] = (materiais[material] || 0) + qtdBase * linha.quantidade;
+        materiais[material] =
+          (materiais[material] || 0) + qtdBase * linha.quantidade;
       }
     }
 
@@ -257,9 +268,30 @@ export default function App() {
                 );
               })}
 
-              <button type="button" className="button button-primary" onClick={adicionarLinha}>
-                + Adicionar Item
-              </button>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                  marginTop: "8px"
+                }}
+              >
+                <button
+                  type="button"
+                  className="button button-primary"
+                  onClick={adicionarLinha}
+                >
+                  + Adicionar Item
+                </button>
+
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  onClick={limparPedido}
+                >
+                  Limpar pedido
+                </button>
+              </div>
             </div>
           </section>
 
