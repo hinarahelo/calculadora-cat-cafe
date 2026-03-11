@@ -88,14 +88,18 @@ function custoDaLinha(item: ItemKey, quantidade: number): number {
 
 export default function App() {
   const [linhas, setLinhas] = useState<LinhaPedido[]>([
-    { id: 1, item: "kids", quantidade: 1 }
+    {
+      id: 1,
+      item: "kids",
+      quantidade: 1
+    }
   ]);
 
   function adicionarLinha() {
     setLinhas((atual) => [
       ...atual,
       {
-        id: Date.now(),
+        id: Date.now() + Math.floor(Math.random() * 1000),
         item: "kids",
         quantidade: 1
       }
@@ -103,7 +107,13 @@ export default function App() {
   }
 
   function limparPedido() {
-    setLinhas([{ id: 1, item: "kids", quantidade: 0 }]);
+    setLinhas([
+      {
+        id: 1,
+        item: "kids",
+        quantidade: 0
+      }
+    ]);
   }
 
   function removerLinha(id: number) {
@@ -120,7 +130,10 @@ export default function App() {
         if (linha.id !== id) return linha;
 
         if (campo === "item") {
-          return { ...linha, item: valor as ItemKey };
+          return {
+            ...linha,
+            item: valor as ItemKey
+          };
         }
 
         return {
@@ -141,7 +154,6 @@ export default function App() {
       if (linha.quantidade <= 0) continue;
 
       const itemAtual = ITENS[linha.item];
-
       totalItens += linha.quantidade;
       valorVendaTotal += itemAtual.venda * linha.quantidade;
       custoTotal += custoDaLinha(linha.item, linha.quantidade);
@@ -193,6 +205,8 @@ export default function App() {
             <div className="panel-body">
               {linhas.map((linha, index) => {
                 const itemAtual = ITENS[linha.item];
+                const totalVendaLinha = itemAtual.venda * linha.quantidade;
+                const custoLinha = custoDaLinha(linha.item, linha.quantidade);
 
                 return (
                   <div className="line-card" key={linha.id}>
@@ -225,6 +239,7 @@ export default function App() {
                       </div>
 
                       <div className="field button-slot">
+                        <label className="label-hidden">Remover</label>
                         <button
                           type="button"
                           className="button button-secondary"
@@ -235,12 +250,28 @@ export default function App() {
                         </button>
                       </div>
                     </div>
+
+                    <div className="line-summary">
+                      <span>
+                        {itemAtual.emoji} {linha.quantidade}x {itemAtual.nome}
+                      </span>
+                      <span>Venda: {moeda(totalVendaLinha)}</span>
+                      <span>Custo: {moeda(custoLinha)}</span>
+                    </div>
                   </div>
                 );
               })}
 
-              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                  marginTop: "8px"
+                }}
+              >
                 <button
+                  type="button"
                   className="button button-primary"
                   onClick={adicionarLinha}
                 >
@@ -248,6 +279,7 @@ export default function App() {
                 </button>
 
                 <button
+                  type="button"
                   className="button button-secondary"
                   onClick={limparPedido}
                 >
@@ -289,6 +321,30 @@ export default function App() {
             </div>
           </section>
         </div>
+
+        <section className="panel">
+          <div className="panel-title">Materiais Necessários</div>
+
+          <div className="panel-body">
+            {resultado.materiaisOrdenados.length === 0 ? (
+              <div className="empty-state">
+                Adicione uma quantidade maior que zero para visualizar os materiais.
+              </div>
+            ) : (
+              <div className="materials-grid">
+                {resultado.materiaisOrdenados.map(([nome, quantidade]) => (
+                  <div className="material-card" key={nome}>
+                    <span className="material-name">{nome}</span>
+                    <strong className="material-qty">{quantidade}</strong>
+                    <span className="material-cost">
+                      Custo: {moeda(quantidade * custoUnitarioDoMaterial(nome))}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
 
         <footer className="footer-credit">
           🐾 Calculadora desenvolvida por <strong>Hinara Heloar</strong> — Direitos reservados.
