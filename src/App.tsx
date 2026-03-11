@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import logo from "./assets/cat-cafe-logo.png";
 
 const INGREDIENT_COST = 10;
 const BOX_PLUSH_COST = 3000;
@@ -192,8 +193,8 @@ export default function App() {
           <div className="hero-top-badge">CAT CAFÉ • DISHES & DESSERTS</div>
 
           <div className="logo-circle">
-  <img src={logo} alt="Cat Cafe Logo" className="logo-img" />
-</div>
+            <img src={logo} alt="Cat Cafe Logo" className="logo-img" />
+          </div>
 
           <h1 className="hero-title">CALCULADORA</h1>
 
@@ -350,22 +351,12 @@ export default function App() {
               </div>
             )}
           </div>
-</section>
+        </section>
 
-<footer
-  style={{
-    textAlign: "center",
-    marginTop: "30px",
-    padding: "10px",
-    fontSize: "14px",
-    color: "#9e4561",
-    opacity: 0.8
-  }}
->
-  Calculadora desenvolvida por Hinara Heloar - Direitos reservados.
-</footer>
-
-</div>
-</div>
-);
+        <footer className="footer-credit">
+          🐾 Calculadora desenvolvida por <strong>Hinara Heloar</strong> — Direitos reservados.
+        </footer>
+      </div>
+    </div>
+  );
 }
