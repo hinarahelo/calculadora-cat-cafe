@@ -350,8 +350,22 @@ export default function App() {
               </div>
             )}
           </div>
-        </section>
-      </div>
-    </div>
-  );
+</section>
+
+<footer
+  style={{
+    textAlign: "center",
+    marginTop: "30px",
+    padding: "10px",
+    fontSize: "14px",
+    color: "#9e4561",
+    opacity: 0.8
+  }}
+>
+  Calculadora desenvolvida por Hinara Heloar - Direitos reservados.
+</footer>
+
+</div>
+</div>
+);
 }
