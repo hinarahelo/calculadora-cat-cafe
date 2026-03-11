@@ -78,16 +78,17 @@ select {
 }
 
 .logo-circle {
-  width: 92px;
-  height: 92px;
   margin: 0 auto 14px;
-  border-radius: 50%;
-  border: 4px solid var(--border);
-  background: var(--white);
   display: grid;
   place-items: center;
-  font-size: 40px;
-  box-shadow: 0 8px 18px rgba(180, 112, 136, 0.12);
+}
+
+.logo-img {
+  width: 260px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
 }
 
 .hero-title,
@@ -95,7 +96,8 @@ select {
 .metric-label,
 .material-name,
 .field label,
-.button {
+.button,
+.footer-credit {
   font-family: "Baloo 2", system-ui, sans-serif;
 }
 
@@ -328,6 +330,22 @@ select {
   font-weight: 800;
 }
 
+.footer-credit {
+  text-align: center;
+  margin-top: 35px;
+  padding: 14px 18px;
+  font-size: 16px;
+  color: #9e4561;
+  background: rgba(248, 223, 230, 0.7);
+  border: 3px solid #efc7d2;
+  border-radius: 20px;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 6px 12px rgba(180, 112, 136, 0.15);
+}
+
 @media (max-width: 1024px) {
   .content-grid {
     grid-template-columns: 1fr;
@@ -377,6 +395,10 @@ select {
   .materials-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .logo-img {
+    width: 220px;
+  }
 }
 
 @media (max-width: 520px) {
@@ -396,10 +418,14 @@ select {
   .metric-card,
   .material-card {
     border-radius: 24px;
-}
-    .logo-img {
-  width: 260px;
-  max-width: 90%;
-  display: block;
-  margin: 0 auto 15px auto;
+  }
+
+  .logo-img {
+    width: 180px;
+  }
+
+  .footer-credit {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
 }
