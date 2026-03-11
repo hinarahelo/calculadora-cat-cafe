@@ -273,20 +273,6 @@ export default function App() {
               </div>
 
               <div className="metric-card">
-                <span className="metric-label">Custo ingredientes</span>
-                <strong className="metric-value small">
-                  {moeda(resultado.custoIngredientes)}
-                </strong>
-              </div>
-
-              <div className="metric-card">
-                <span className="metric-label">Custo pelúcia</span>
-                <strong className="metric-value small">
-                  {moeda(resultado.custoPelucia)}
-                </strong>
-              </div>
-
-              <div className="metric-card">
                 <span className="metric-label">Custo de Produção</span>
                 <strong className="metric-value small">
                   {moeda(resultado.custoTotal)}
