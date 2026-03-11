@@ -11,8 +11,8 @@ const ITENS = {
       leite: 3,
       açúcar: 3,
       arroz: 3,
-      batata: 3,
-    },
+      batata: 3
+    }
   },
   p: {
     nome: "Combo P",
@@ -26,8 +26,8 @@ const ITENS = {
       queijo: 1,
       água: 1,
       café: 1,
-      leite: 2,
-    },
+      leite: 2
+    }
   },
   g: {
     nome: "Combo G",
@@ -41,15 +41,15 @@ const ITENS = {
       queijo: 1,
       água: 2,
       café: 2,
-      leite: 2,
-    },
+      leite: 2
+    }
   },
   box: {
     nome: "Caixa Box",
     emoji: "🎁",
     venda: 6000,
-    ingredientes: {},
-  },
+    ingredientes: {}
+  }
 } as const;
 
 type ItemKey = keyof typeof ITENS;
@@ -66,31 +66,31 @@ function moeda(valor: number): string {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 0
   }).format(valor);
 }
 
-function App() {
+export default function App() {
   const [linhas, setLinhas] = useState<LinhaPedido[]>([
     {
       id: 1,
       item: "kids",
       quantidade: 1,
       peluciasPorCaixa: 1,
-      custoPelucia: 0,
-    },
+      custoPelucia: 0
+    }
   ]);
 
   function adicionarLinha() {
     setLinhas((atual) => [
       ...atual,
       {
-        id: Date.now(),
+        id: Date.now() + Math.floor(Math.random() * 1000),
         item: "kids",
         quantidade: 1,
         peluciasPorCaixa: 1,
-        custoPelucia: 0,
-      },
+        custoPelucia: 0
+      }
     ]);
   }
 
@@ -110,7 +110,7 @@ function App() {
         if (campo === "item") {
           return {
             ...linha,
-            item: valor as ItemKey,
+            item: valor as ItemKey
           };
         }
 
@@ -118,7 +118,7 @@ function App() {
 
         return {
           ...linha,
-          [campo]: numero,
+          [campo]: numero
         };
       })
     );
@@ -129,7 +129,6 @@ function App() {
 
     let custoIngredientes = 0;
     let custoPelucias = 0;
-    let custoTotal = 0;
     let vendaTotal = 0;
     let totalItens = 0;
 
@@ -158,7 +157,7 @@ function App() {
       }
     }
 
-    custoTotal = custoIngredientes + custoPelucias;
+    const custoTotal = custoIngredientes + custoPelucias;
     const lucro = vendaTotal - custoTotal;
 
     const materiaisOrdenados = Object.entries(materiais).sort((a, b) =>
@@ -172,25 +171,25 @@ function App() {
       custoTotal,
       lucro,
       vendaTotal,
-      totalItens,
+      totalItens
     };
   }, [linhas]);
 
   return (
     <div style={styles.page}>
-      <div style={styles.wrapper}>
+      <div style={styles.container}>
         <header style={styles.hero}>
-          <div style={styles.heroBadge}>🐈 Cat Café • Dishes & Desserts</div>
-          <div style={styles.catCircle}>🐾</div>
-          <h1 style={styles.heroTitle}>Calculadora</h1>
-          <p style={styles.heroText}>
+          <div style={styles.badge}>🐈 Cat Café • Dishes & Desserts</div>
+          <div style={styles.iconCircle}>🐾</div>
+          <h1 style={styles.title}>Calculadora</h1>
+          <p style={styles.subtitle}>
             Escolha os itens, informe as quantidades e veja os materiais
             necessários, o custo total, o lucro e o valor final para apresentar
             ao cliente.
           </p>
         </header>
 
-        <div style={styles.gridTop}>
+        <div style={styles.topGrid}>
           <section style={styles.card}>
             <div style={styles.cardHeader}>Montagem do Pedido</div>
             <div style={styles.cardBody}>
@@ -203,8 +202,7 @@ function App() {
                 const custoLinha = ehBox
                   ? totalPelucias * linha.custoPelucia
                   : Object.values(itemAtual.ingredientes).reduce(
-                      (acc, qtd) =>
-                        acc + qtd * INGREDIENT_COST * linha.quantidade,
+                      (acc, qtd) => acc + qtd * INGREDIENT_COST * linha.quantidade,
                       0
                     );
 
@@ -240,14 +238,15 @@ function App() {
                         />
                       </div>
 
-                      <div style={styles.fieldButton}>
+                      <div style={styles.buttonField}>
                         <button
+                          type="button"
                           onClick={() => removerLinha(linha.id)}
                           disabled={linhas.length === 1}
                           style={{
-                            ...styles.buttonSecondary,
+                            ...styles.secondaryButton,
                             opacity: linhas.length === 1 ? 0.5 : 1,
-                            cursor: linhas.length === 1 ? "not-allowed" : "pointer",
+                            cursor: linhas.length === 1 ? "not-allowed" : "pointer"
                           }}
                         >
                           Remover
@@ -283,11 +282,7 @@ function App() {
                             min={0}
                             value={linha.custoPelucia}
                             onChange={(e) =>
-                              atualizarLinha(
-                                linha.id,
-                                "custoPelucia",
-                                e.target.value
-                              )
+                              atualizarLinha(linha.id, "custoPelucia", e.target.value)
                             }
                             style={styles.input}
                           />
@@ -295,14 +290,14 @@ function App() {
                       </div>
                     )}
 
-                    <div style={styles.lineSummary}>
+                    <div style={styles.summaryBox}>
                       <div>
                         {itemAtual.emoji} {linha.quantidade}x {itemAtual.nome} ={" "}
                         {moeda(totalLinhaVenda)} de venda
                       </div>
                       <div>Custo: {moeda(custoLinha)}</div>
                       {ehBox && (
-                        <div style={styles.lineSmall}>
+                        <div style={styles.smallText}>
                           Total de pelúcias nesta linha: {totalPelucias}
                         </div>
                       )}
@@ -311,7 +306,7 @@ function App() {
                 );
               })}
 
-              <button onClick={adicionarLinha} style={styles.buttonPrimary}>
+              <button type="button" onClick={adicionarLinha} style={styles.primaryButton}>
                 + Adicionar item
               </button>
             </div>
@@ -355,15 +350,8 @@ function App() {
 
               <div style={styles.totalBox}>
                 <div style={styles.metricLabel}>Valor final para o cliente</div>
-                <div style={styles.totalValue}>
-                  {moeda(calculo.vendaTotal)}
-                </div>
+                <div style={styles.totalValue}>{moeda(calculo.vendaTotal)}</div>
               </div>
-
-              <p style={styles.footerNote}>
-                Ingredientes: custo fixo de {moeda(INGREDIENT_COST)} por unidade.
-                Caixa Box: custo de pelúcia definido por você.
-              </p>
             </div>
           </section>
         </div>
@@ -372,10 +360,9 @@ function App() {
           <div style={styles.cardHeader}>Materiais Necessários</div>
           <div style={styles.cardBody}>
             {calculo.materiaisOrdenados.length === 0 ? (
-              <p style={styles.emptyText}>
-                Adicione uma quantidade maior que zero para visualizar os
-                materiais.
-              </p>
+              <div style={styles.emptyText}>
+                Adicione uma quantidade maior que zero para visualizar os materiais.
+              </div>
             ) : (
               <div style={styles.materialGrid}>
                 {calculo.materiaisOrdenados.map(([ingrediente, quantidade]) => {
@@ -395,8 +382,8 @@ function App() {
 
                   return (
                     <div key={ingrediente} style={styles.materialCard}>
-                      <div style={styles.materialLabel}>{ingrediente}</div>
-                      <div style={styles.materialValue}>{quantidade}</div>
+                      <div style={styles.materialName}>{ingrediente}</div>
+                      <div style={styles.materialQty}>{quantidade}</div>
                       <div style={styles.materialCost}>
                         Custo: {moeda(custoMaterial)}
                       </div>
@@ -419,248 +406,234 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundImage:
       "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.9) 1.2px, transparent 0)",
     backgroundSize: "24px 24px",
-    padding: "16px",
+    padding: "16px"
   },
-  wrapper: {
+  container: {
     maxWidth: "1280px",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
-    gap: "24px",
+    gap: "24px"
   },
   hero: {
-    border: "4px solid #f1c7d3",
     background: "#f8dfe6",
-    borderRadius: "36px",
-    padding: "32px 24px",
+    border: "4px solid #f1c7d3",
+    borderRadius: "32px",
+    padding: "32px 20px",
     textAlign: "center",
-    boxShadow: "0 16px 40px rgba(178,98,122,0.18)",
+    boxShadow: "0 16px 40px rgba(178,98,122,0.18)"
   },
-  heroBadge: {
+  badge: {
     display: "inline-block",
-    background: "#fff",
+    background: "#ffffff",
     color: "#a24d67",
     border: "2px solid #efc3d0",
     borderRadius: "999px",
     padding: "8px 16px",
     fontWeight: 700,
     fontSize: "14px",
-    marginBottom: "16px",
+    marginBottom: "16px"
   },
-  catCircle: {
-    width: "82px",
-    height: "82px",
-    borderRadius: "50%",
+  iconCircle: {
+    width: "80px",
+    height: "80px",
     margin: "0 auto 16px auto",
+    borderRadius: "50%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     background: "#fff",
     border: "4px solid #f1c7d3",
-    fontSize: "34px",
+    fontSize: "32px"
   },
-  heroTitle: {
+  title: {
     margin: 0,
-    color: "#9c3f5e",
-    fontSize: "52px",
+    fontSize: "48px",
     fontWeight: 900,
-    textTransform: "uppercase",
-    letterSpacing: "1px",
+    color: "#9c3f5e",
+    textTransform: "uppercase"
   },
-  heroText: {
-    maxWidth: "820px",
+  subtitle: {
     margin: "12px auto 0 auto",
+    maxWidth: "820px",
     color: "#8f5870",
     fontSize: "16px",
-    fontWeight: 600,
     lineHeight: 1.6,
+    fontWeight: 600
   },
-  gridTop: {
+  topGrid: {
     display: "grid",
     gridTemplateColumns: "2fr 1fr",
-    gap: "24px",
+    gap: "24px"
   },
   card: {
-    border: "4px solid #f1c7d3",
     background: "#fbeef2",
-    borderRadius: "32px",
+    border: "4px solid #f1c7d3",
+    borderRadius: "28px",
     overflow: "hidden",
-    boxShadow: "0 10px 30px rgba(178,98,122,0.16)",
+    boxShadow: "0 10px 30px rgba(178,98,122,0.16)"
   },
   cardHeader: {
-    padding: "18px 22px",
     background: "#f9e3ea",
-    borderBottom: "1px solid #f3d6de",
     color: "#a24d67",
-    fontSize: "28px",
+    padding: "18px 22px",
+    fontSize: "26px",
     fontWeight: 900,
+    borderBottom: "1px solid #f3d6de"
   },
   cardBody: {
-    padding: "22px",
+    padding: "20px"
   },
   lineCard: {
-    border: "4px solid #efc3d0",
     background: "#fff7f9",
-    borderRadius: "28px",
+    border: "4px solid #efc3d0",
+    borderRadius: "24px",
     padding: "16px",
-    marginBottom: "16px",
+    marginBottom: "16px"
   },
   formGrid: {
     display: "grid",
     gridTemplateColumns: "1fr 170px 130px",
     gap: "16px",
-    alignItems: "end",
+    alignItems: "end"
   },
   boxGrid: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gap: "16px",
-    marginTop: "16px",
+    marginTop: "16px"
   },
   field: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px",
+    gap: "8px"
   },
-  fieldButton: {
+  buttonField: {
     display: "flex",
-    alignItems: "end",
+    alignItems: "end"
   },
   label: {
-    fontWeight: 700,
     color: "#9c3f5e",
     fontSize: "14px",
+    fontWeight: 700
   },
   input: {
     width: "100%",
-    border: "2px solid #efc3d0",
-    borderRadius: "16px",
     padding: "12px 14px",
-    fontSize: "15px",
-    color: "#8b4b61",
+    borderRadius: "16px",
+    border: "2px solid #efc3d0",
     background: "#fff",
-    outline: "none",
+    color: "#8b4b61",
+    fontSize: "15px",
+    outline: "none"
   },
-  buttonPrimary: {
+  primaryButton: {
     border: "2px solid #d98ea7",
     background: "#d98ea7",
     color: "#fff",
     borderRadius: "16px",
     padding: "12px 18px",
-    fontSize: "15px",
     fontWeight: 700,
-    cursor: "pointer",
+    cursor: "pointer"
   },
-  buttonSecondary: {
+  secondaryButton: {
     width: "100%",
     border: "2px solid #efc3d0",
     background: "#fff",
     color: "#a24d67",
     borderRadius: "16px",
     padding: "12px 14px",
-    fontSize: "15px",
-    fontWeight: 700,
+    fontWeight: 700
   },
-  lineSummary: {
+  summaryBox: {
     marginTop: "16px",
-    border: "2px solid #f3d6de",
     background: "#f9e7ed",
-    borderRadius: "24px",
+    border: "2px solid #f3d6de",
+    borderRadius: "20px",
     padding: "12px 14px",
-    color: "#9c3f5e",
-    fontWeight: 700,
     display: "flex",
     flexDirection: "column",
     gap: "6px",
+    color: "#9c3f5e",
+    fontWeight: 700
   },
-  lineSmall: {
+  smallText: {
     fontSize: "12px",
-    color: "#8f5870",
-    fontWeight: 600,
+    color: "#8f5870"
   },
   metricBox: {
-    border: "4px solid #efc3d0",
     background: "#fff7f9",
-    borderRadius: "26px",
+    border: "4px solid #efc3d0",
+    borderRadius: "22px",
     padding: "18px",
     textAlign: "center",
-    marginBottom: "16px",
+    marginBottom: "16px"
   },
   metricLabel: {
     fontSize: "13px",
     textTransform: "uppercase",
     letterSpacing: "0.8px",
     color: "#b16a82",
-    fontWeight: 800,
+    fontWeight: 800
   },
   metricValue: {
     marginTop: "8px",
-    fontSize: "42px",
+    fontSize: "40px",
     fontWeight: 900,
-    color: "#9c3f5e",
+    color: "#9c3f5e"
   },
   metricValueSmall: {
     marginTop: "8px",
-    fontSize: "30px",
+    fontSize: "28px",
     fontWeight: 900,
-    color: "#9c3f5e",
+    color: "#9c3f5e"
   },
   totalBox: {
-    border: "4px solid #e7a7ba",
     background: "#f9d7e2",
-    borderRadius: "30px",
+    border: "4px solid #e7a7ba",
+    borderRadius: "26px",
     padding: "20px",
-    textAlign: "center",
+    textAlign: "center"
   },
   totalValue: {
     marginTop: "10px",
-    fontSize: "40px",
+    fontSize: "38px",
     fontWeight: 900,
-    color: "#923753",
-  },
-  footerNote: {
-    marginTop: "12px",
-    textAlign: "center",
-    color: "#8f5870",
-    fontSize: "12px",
-    fontWeight: 600,
-    lineHeight: 1.6,
+    color: "#923753"
   },
   emptyText: {
     color: "#8f5870",
-    fontWeight: 600,
+    fontWeight: 600
   },
   materialGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "16px",
+    gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+    gap: "16px"
   },
   materialCard: {
-    border: "4px solid #efc3d0",
     background: "#fff7f9",
-    borderRadius: "26px",
+    border: "4px solid #efc3d0",
+    borderRadius: "22px",
     padding: "18px",
-    textAlign: "center",
+    textAlign: "center"
   },
-  materialLabel: {
+  materialName: {
     color: "#b16a82",
     fontSize: "13px",
     textTransform: "uppercase",
     letterSpacing: "0.8px",
-    fontWeight: 800,
+    fontWeight: 800
   },
-  materialValue: {
+  materialQty: {
     marginTop: "10px",
     color: "#9c3f5e",
-    fontSize: "40px",
-    fontWeight: 900,
+    fontSize: "38px",
+    fontWeight: 900
   },
   materialCost: {
     marginTop: "6px",
     color: "#8f5870",
     fontSize: "12px",
-    fontWeight: 600,
-  },
+    fontWeight: 600
+  }
 };
-
-export default App;
