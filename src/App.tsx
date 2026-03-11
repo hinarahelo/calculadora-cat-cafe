@@ -192,8 +192,8 @@ export default function App() {
           <div className="hero-top-badge">CAT CAFÉ • DISHES & DESSERTS</div>
 
           <div className="logo-circle">
-            <span>🐈</span>
-          </div>
+  <img src={logo} alt="Cat Cafe Logo" className="logo-img" />
+</div>
 
           <h1 className="hero-title">CALCULADORA</h1>
 
