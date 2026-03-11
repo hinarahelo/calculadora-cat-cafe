@@ -195,7 +195,7 @@ export default function App() {
             <span>🐈</span>
           </div>
 
-          <h1 className="hero-title">MENU CALCULADORA</h1>
+          <h1 className="hero-title">CALCULADORA</h1>
 
           <p className="hero-text">
             Escolha os itens, informe as quantidades e veja automaticamente os
